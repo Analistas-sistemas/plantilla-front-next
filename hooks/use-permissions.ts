@@ -1,42 +1,22 @@
 /**
- * Hook para gestión de permisos
+ * Hook para gestión de permisos (client-side)
+ * 
+ * NOTA: Este hook solo proporciona información básica de autenticación.
+ * Para verificaciones de permisos granulares (CRUD por módulo), usar las
+ * funciones server-side de @/lib/permissions en Server Components.
  */
 
 import { useMemo } from 'react';
 import { useAuthStore } from '@/store';
-import { checkPermission, type PermissionCheck } from '@/lib/permissions';
 
 export function usePermissions() {
   const user = useAuthStore((state) => state.user);
   
   /**
-   * Verifica si el usuario tiene un permiso específico
+   * Verifica si el usuario está autenticado
    */
-  const hasPermission = useMemo(() => {
-    return (check: PermissionCheck): boolean => {
-      if (!user) return false;
-      return checkPermission(check, user);
-    };
-  }, [user]);
-  
-  /**
-   * Verifica si el usuario tiene TODOS los permisos especificados
-   */
-  const hasAllPermissions = useMemo(() => {
-    return (checks: PermissionCheck[]): boolean => {
-      if (!user) return false;
-      return checks.every(check => checkPermission(check, user));
-    };
-  }, [user]);
-  
-  /**
-   * Verifica si el usuario tiene AL MENOS UNO de los permisos especificados
-   */
-  const hasAnyPermission = useMemo(() => {
-    return (checks: PermissionCheck[]): boolean => {
-      if (!user) return false;
-      return checks.some(check => checkPermission(check, user));
-    };
+  const isAuthenticated = useMemo(() => {
+    return !!user;
   }, [user]);
   
   /**
@@ -46,10 +26,24 @@ export function usePermissions() {
     return user?.rol?.esAdmin ?? false;
   }, [user]);
   
+  /**
+   * Obtiene el código del usuario
+   */
+  const userCode = useMemo(() => {
+    return user?.tcodipers ?? null;
+  }, [user]);
+  
+  /**
+   * Obtiene el nombre del rol del usuario
+   */
+  const roleName = useMemo(() => {
+    return user?.rol?.nombre ?? null;
+  }, [user]);
+  
   return {
-    hasPermission,
-    hasAllPermissions,
-    hasAnyPermission,
+    isAuthenticated,
     isAdmin,
+    userCode,
+    roleName,
   };
 }

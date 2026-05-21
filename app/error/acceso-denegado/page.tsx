@@ -11,4 +11,3 @@ interface AccesoDenegadoPageProps {
 export default function AccesoDenegadoPage({ searchParams }: AccesoDenegadoPageProps) {
   return <AccessDenied reason={searchParams.reason} />;
 }
-

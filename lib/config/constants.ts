@@ -45,7 +45,7 @@ export const ROUTES = {
   home: '/inicio',
   login: '/login',
   error: '/error',
-  accessDenied: '/acceso-denegado',
+  accessDenied: '/error/acceso-denegado',
   notFound: '/not-found',
 } as const;
 

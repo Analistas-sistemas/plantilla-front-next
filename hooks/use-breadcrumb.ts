@@ -1,16 +1,18 @@
 /**
  * Hook para gestión de breadcrumbs
+ * Nota: El breadcrumb se genera automáticamente en el layout
+ * Este hook es un placeholder para compatibilidad futura
  */
 
-import { useContext } from 'react';
-import { BreadcrumbContext } from '@/components/layout/breadcrumb-provider';
+import { usePathname } from 'next/navigation';
 
 export function useBreadcrumb() {
-  const context = useContext(BreadcrumbContext);
+  const pathname = usePathname();
   
-  if (!context) {
-    throw new Error('useBreadcrumb debe ser usado dentro de BreadcrumbProvider');
-  }
-  
-  return context;
+  // Por ahora solo retorna el pathname actual
+  // En el futuro se puede extender para manipular breadcrumbs dinámicamente
+  return {
+    pathname,
+  };
 }
+

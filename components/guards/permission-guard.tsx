@@ -31,7 +31,7 @@ export async function PermissionGuard({
 
   // Si hay error cargando permisos, redirigir a página de error
   if (permissionsState.error) {
-    redirect('/acceso-denegado?reason=error');
+    redirect('/error/acceso-denegado?reason=error');
   }
 
   // Si se especifica un código de módulo, verificar permisos específicos
@@ -41,7 +41,7 @@ export async function PermissionGuard({
     );
 
     if (!moduloPermisos) {
-      redirect('/acceso-denegado?reason=no-module');
+      redirect('/error/acceso-denegado?reason=no-module');
     }
 
     // Verificar permisos requeridos
@@ -52,14 +52,14 @@ export async function PermissionGuard({
       (!requireDelete || moduloPermisos.canDelete);
 
     if (!hasRequiredPermissions) {
-      redirect('/acceso-denegado?reason=insufficient');
+      redirect('/error/acceso-denegado?reason=insufficient');
     }
   } else {
     // Si no se especifica módulo, verificar que tenga al menos algún permiso
     const hasAnyPermission = permissionsState.modulosPermisos.length > 0;
 
     if (!hasAnyPermission) {
-      redirect('/acceso-denegado?reason=no-access');
+      redirect('/error/acceso-denegado?reason=no-access');
     }
   }
 
