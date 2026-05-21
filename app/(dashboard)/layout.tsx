@@ -1,67 +1,33 @@
-import { getMenuItems, getSistemaNombre } from '@/lib/menu';
-import { getUserSession } from '@/lib/auth';
-import { getContextoCompleto, getMockContexto } from '@/lib/user/profile';
-import { Sidebar } from '@/components/layout/sidebar/sidebar';
-import { BreadcrumbProvider } from '@/components/layout/breadcrumb/breadcrumb-provider';
-import { Footer } from '@/components/layout/footer';
-import type { MenuItem } from '@/lib/menu/types';
+import { AppSidebar } from "@/components/app-sidebar";
+import {
+  SidebarInset,
+  SidebarProvider,
+} from "@/components/ui/sidebar";
+import { getMenuItems, getSistemaNombre } from "@/lib/menu/menu-loader";
+import { HeaderContent } from "@/components/header-content";
 
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  // Obtener sesión de usuario
-  const userSession = await getUserSession();
-
-  // Cargar datos con manejo de errores
-  let menuItems: MenuItem[] = [];
-  let sistemaNombre = 'Sistema';
-  let contextoCompleto = getMockContexto(userSession.codigoPersona);
-
-  try {
-    // Intentar cargar menú y nombre del sistema
-    [menuItems, sistemaNombre] = await Promise.all([
-      getMenuItems().catch(() => []),
-      getSistemaNombre().catch(() => 'Sistema'),
-    ]);
-  } catch (error) {
-    console.error('Error cargando menú:', error);
-  }
-
-  try {
-    // Intentar cargar contexto del usuario
-    const ctx = await getContextoCompleto();
-    if (ctx) {
-      contextoCompleto = ctx;
-    }
-  } catch (error) {
-    console.error('Error cargando contexto de usuario:', error);
-  }
+  // Cargar datos del menú en el servidor (Server Component)
+  const [menuItems, sistemaNombre] = await Promise.all([
+    getMenuItems(),
+    getSistemaNombre(),
+  ]);
 
   return (
-    <div className="flex h-screen overflow-hidden">
-      {/* Sidebar */}
-      <Sidebar 
-        menuItems={menuItems} 
-        title={sistemaNombre}
-        version="v1.0.0"
-      />
-
-      {/* Main content */}
-      <div className="flex flex-col flex-1 overflow-hidden">
-        <BreadcrumbProvider 
-          menuItems={menuItems}
-          usuario={contextoCompleto.usuario}
-          contextoCompleto={contextoCompleto}
-        />
-        
-        <main className="flex-1 overflow-y-auto bg-gray-50 p-6 pt-20 md:pt-6">
+    <SidebarProvider>
+      <AppSidebar menuItems={menuItems} sistemaNombre={sistemaNombre} />
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12">
+          <HeaderContent />
+        </header>
+        <main className="flex flex-1 flex-col p-6">
           {children}
         </main>
-
-        <Footer />
-      </div>
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }

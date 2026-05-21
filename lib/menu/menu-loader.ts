@@ -141,7 +141,6 @@ export async function getMenuItems(): Promise<MenuItem[]> {
 
   try {
     const response = await apiClient.get<MenuResponse>('/api/v1/permisos/navegacion');
-
     const { menuItems, sistemaNombre } = processMenuResponse(response);
 
     // Guardar en cache
@@ -153,10 +152,7 @@ export async function getMenuItems(): Promise<MenuItem[]> {
 
     return menuItems;
   } catch (error) {
-    // En desarrollo es normal no tener autenticación - retornar array vacío silenciosamente
-    if (process.env.NODE_ENV !== 'development') {
-      console.error('Error al obtener menú:', error);
-    }
+    console.error('[Menu] Error al obtener navegación:', error);
     return [];
   }
 }

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import { LoadingOverlay } from "@/components/common/loading-overlay";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const anekLatin = localFont({
   src: "../public/fonts/AnekLatin-VariableFont_wdth,wght.ttf",
@@ -32,7 +33,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col" suppressHydrationWarning>
-        {children}
+        <TooltipProvider>
+          {children}
+        </TooltipProvider>
         <LoadingOverlay />
       </body>
     </html>

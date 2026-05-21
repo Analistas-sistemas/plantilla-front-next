@@ -13,3 +13,6 @@ export type * from './errors';
 
 // Tipos de data-table
 export type * from './data-table';
+
+// Tipos de notificaciones
+export type * from './notifications';
