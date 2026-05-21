@@ -43,9 +43,8 @@ const SLUG_TRANSFORM_RULES: Record<string, string> = {
   'lista': 'lista',
   'tabla': 'tabla',
   'detalle-reporte': 'detalle-reporte',
-  
-  // Inicio
-  'inicio': 'acceso-rapido',
+
+
 };
 
 /**

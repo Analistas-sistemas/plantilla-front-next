@@ -3,6 +3,7 @@ import { getUserSession } from '@/lib/auth';
 import { getContextoCompleto, getMockContexto } from '@/lib/user/profile';
 import { Sidebar } from '@/components/layout/sidebar/sidebar';
 import { BreadcrumbProvider } from '@/components/layout/breadcrumb/breadcrumb-provider';
+import { Footer } from '@/components/layout/footer';
 import type { MenuItem } from '@/lib/menu/types';
 
 export default async function DashboardLayout({
@@ -55,9 +56,11 @@ export default async function DashboardLayout({
           contextoCompleto={contextoCompleto}
         />
         
-        <main className="flex-1 overflow-y-auto bg-gray-50 p-6">
+        <main className="flex-1 overflow-y-auto bg-gray-50 p-6 pt-20 md:pt-6">
           {children}
         </main>
+
+        <Footer />
       </div>
     </div>
   );

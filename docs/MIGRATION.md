@@ -232,7 +232,7 @@ const reportes = await ReportesService.getAll();
 1. `app/layout.tsx`
 2. `app/(dashboard)/page.tsx`
 3. `app/(dashboard)/acceso-denegado/page.tsx`
-4. `app/(dashboard)/inicio/acceso-rapido/page.tsx`
+4. `app/(dashboard)/inicio/page.tsx`
 5. `app/(dashboard)/paginas/crud/page.tsx`
 6. `app/(dashboard)/reportes/tabla/page.tsx`
 7. `app/error/page.tsx`

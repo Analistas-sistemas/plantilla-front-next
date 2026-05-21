@@ -17,6 +17,7 @@ interface SidebarItemProps {
   currentExpandedItemIndex: number[];
   sidebarCollapsed: boolean;
   onExpandChange: (event: { depth: number; index: number; expanded: boolean }) => void;
+  onNavigate?: () => void;
 }
 
 /**
@@ -43,6 +44,7 @@ export function SidebarItem({
   currentExpandedItemIndex,
   sidebarCollapsed,
   onExpandChange,
+  onNavigate,
 }: SidebarItemProps) {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(expanded);
@@ -51,6 +53,21 @@ export function SidebarItem({
   useEffect(() => {
     setIsOpen(expanded);
   }, [expanded]);
+
+  // Manejar expansión/colapso del sidebar
+  useEffect(() => {
+    if (sidebarCollapsed) {
+      // Cerrar cuando el sidebar se colapsa
+      setIsOpen(false);
+    } else {
+      // Expandir automáticamente si tiene un hijo activo cuando el sidebar se expande
+      if (hasActiveChild() && item.items) {
+        setIsOpen(true);
+        onExpandChange({ depth, index, expanded: true });
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sidebarCollapsed]);
 
   const isActive = () => {
     if (!item.href) return false;
@@ -131,6 +148,7 @@ export function SidebarItem({
     return (
       <Link
         href={item.href || '#'}
+        onClick={onNavigate}
         className={cn(
           "relative flex items-center gap-2.5 rounded-lg px-3 py-2.5 text-white/90 transition-colors hover:bg-brand-primary-hover hover:text-white",
           isActive() && "bg-brand-secondary text-white font-semibold",
@@ -172,6 +190,7 @@ export function SidebarItem({
             currentExpandedItemIndex={currentExpandedItemIndex}
             sidebarCollapsed={sidebarCollapsed}
             onExpandChange={onExpandChange}
+            onNavigate={onNavigate}
           />
         ))}
       </CollapsibleContent>

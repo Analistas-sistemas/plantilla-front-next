@@ -48,8 +48,28 @@ mapBackendRoute('/pages/faq')         // → '/paginas/preguntas-frecuentes'
 // Reportes (se mantienen igual)
 mapBackendRoute('/reportes/lista')    // → '/reportes/lista'
 
-// Inicio
-mapBackendRoute('/inicio/inicio')     // → '/inicio/acceso-rapido'
+// Inicio (se mantiene la ruta del backend, next.config.ts maneja el rewrite)
+mapBackendRoute('/inicio/inicio')     // → '/inicio/inicio' (rewrite a /inicio en next.config.ts)
+mapBackendRoute('/inicio/incio')      // → '/inicio/incio' (rewrite a /inicio en next.config.ts)
+```
+
+## Rewrites en next.config.ts
+
+Para rutas especiales que necesitan mantener la URL pero servir contenido de otra página:
+
+```typescript
+// next.config.ts
+async rewrites() {
+  return [
+    { source: '/inicio/inicio', destination: '/inicio' },
+    { source: '/inicio/incio', destination: '/inicio' },
+  ];
+}
+```
+
+**Diferencia entre Redirect y Rewrite:**
+- **Redirect**: Cambia la URL en el navegador → `/inicio/inicio` se ve como `/inicio`
+- **Rewrite**: Mantiene la URL visible pero sirve contenido de otra ruta → `/inicio/incio` se queda en el navegador pero muestra `/inicio`
 ```
 
 ## Agregar Nuevas Rutas (Extensibilidad)

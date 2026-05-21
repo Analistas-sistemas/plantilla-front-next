@@ -1,10 +1,11 @@
 'use client';
 
 import { useState } from 'react';
-import { ChevronLeft } from 'lucide-react';
+import { ChevronLeft, Menu } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Button } from '@/components/ui/button';
+import { Sheet, SheetContent } from '@/components/ui/sheet';
 import { SidebarItem } from './sidebar-item';
 import type { MenuItem } from '@/lib/menu/types';
 
@@ -16,6 +17,7 @@ interface SidebarProps {
 }
 
 export function Sidebar({ menuItems, title = 'Sistema', version = 'v1.0.0', defaultOpen = true }: SidebarProps) {
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [open, setOpen] = useState(defaultOpen);
   const [currentExpandedItemIndex, setCurrentExpandedItemIndex] = useState<number[]>([]);
 
@@ -35,13 +37,12 @@ export function Sidebar({ menuItems, title = 'Sistema', version = 'v1.0.0', defa
     });
   };
 
-  return (
-    <aside
-      className={cn(
-        "relative flex flex-col h-screen border-r border-brand-primary-hover bg-brand-primary transition-all duration-300",
-        open ? "w-64" : "w-16"
-      )}
-    >
+  const closeMobileSidebar = () => {
+    setMobileOpen(false);
+  };
+
+  const sidebarContent = (
+    <>
       {/* Header con título */}
       <div
         className={cn(
@@ -57,7 +58,7 @@ export function Sidebar({ menuItems, title = 'Sistema', version = 'v1.0.0', defa
           size="icon"
           onClick={() => setOpen(!open)}
           className={cn(
-            "h-8 w-8 flex-shrink-0 transition-transform text-white hover:text-white hover:bg-white/10",
+            "h-8 w-8 flex-shrink-0 transition-transform text-white hover:text-white hover:bg-white/10 md:flex hidden",
             !open && "rotate-180"
           )}
           aria-label={open ? 'Colapsar menú' : 'Expandir menú'}
@@ -79,6 +80,7 @@ export function Sidebar({ menuItems, title = 'Sistema', version = 'v1.0.0', defa
               currentExpandedItemIndex={currentExpandedItemIndex}
               sidebarCollapsed={!open}
               onExpandChange={handleExpandChange}
+              onNavigate={closeMobileSidebar}
             />
           ))}
         </nav>
@@ -92,6 +94,40 @@ export function Sidebar({ menuItems, title = 'Sistema', version = 'v1.0.0', defa
           </p>
         </div>
       )}
-    </aside>
+    </>
+  );
+
+  return (
+    <>
+      {/* Botón hamburguesa móvil */}
+      <Button
+        variant="ghost"
+        size="icon"
+        onClick={() => setMobileOpen(true)}
+        className="md:hidden fixed top-4 left-4 z-40 h-10 w-10 bg-brand-primary text-white hover:bg-brand-primary-hover"
+        aria-label="Abrir menú"
+      >
+        <Menu className="h-5 w-5" />
+      </Button>
+
+      {/* Sidebar móvil (Sheet) */}
+      <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+        <SheetContent side="left" className="p-0 w-64 bg-brand-primary border-r border-brand-primary-hover md:hidden">
+          <div className="flex flex-col h-full">
+            {sidebarContent}
+          </div>
+        </SheetContent>
+      </Sheet>
+
+      {/* Sidebar desktop */}
+      <aside
+        className={cn(
+          "relative flex-col h-screen border-r border-brand-primary-hover bg-brand-primary transition-all duration-300 hidden md:flex",
+          open ? "w-64" : "w-16"
+        )}
+      >
+        {sidebarContent}
+      </aside>
+    </>
   );
 }
