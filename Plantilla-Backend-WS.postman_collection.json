@@ -1,0 +1,669 @@
+{
+	"info": {
+		"_postman_id": "plantilla-backend-ws-2026",
+		"name": "Plantilla Backend WS - Colección Completa",
+		"description": "Colección completa de endpoints del sistema Plantilla Backend WS\n\n**Base URL:** http://localhost:3100\n**Producción:** https://desarrollo.nettalco.com.pe/cotizacionesWS\n\n**Autenticación:** Cookies HttpOnly automáticas (sat-token, refresh-token)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:3100",
+			"type": "string"
+		},
+		{
+			"key": "prodUrl",
+			"value": "https://desarrollo.nettalco.com.pe/cotizacionesWS",
+			"type": "string"
+		}
+	],
+	"item": [
+		{
+			"name": "🔐 Autenticación",
+			"item": [
+				{
+					"name": "Dev Login (Desarrollo)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"userId\": \"admin\",\n  \"userName\": \"Administrador\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/dev-login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "dev-login"]
+						},
+						"description": "Login de desarrollo para testing (solo disponible en NODE_ENV=development)"
+					},
+					"response": []
+				},
+				{
+					"name": "Login (SSO)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"refreshToken\": \"token-sso-refresh\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "login"]
+						},
+						"description": "Login con tokens SSO (requiere autenticación previa en SSO)"
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/refresh",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "refresh"]
+						},
+						"description": "Renovar token SAT expirado (usa refresh-token cookie)"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/logout",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "logout"]
+						},
+						"description": "Cerrar sesión y limpiar cookies"
+					},
+					"response": []
+				},
+				{
+					"name": "Validar Token",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/validate",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "validate"]
+						},
+						"description": "Validar token SAT actual (requiere autenticación)"
+					},
+					"response": []
+				},
+				{
+					"name": "Usuario Actual (Me)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/me",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "me"]
+						},
+						"description": "Obtener información del usuario autenticado"
+					},
+					"response": []
+				},
+				{
+					"name": "System Info",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/system-info",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "system-info"]
+						},
+						"description": "Información del sistema (público)"
+					},
+					"response": []
+				},
+				{
+					"name": "Debug Cookies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/debug-cookies",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "debug-cookies"]
+						},
+						"description": "Debugging de cookies (solo desarrollo)"
+					},
+					"response": []
+				},
+				{
+					"name": "Auth Health Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/auth/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "auth", "health"]
+						},
+						"description": "Health check del módulo de autenticación"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints de autenticación y gestión de sesiones"
+		},
+		{
+			"name": "🧭 Navegación y Permisos",
+			"item": [
+				{
+					"name": "Obtener Navegación",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/permisos/navegacion",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "permisos", "navegacion"]
+						},
+						"description": "Obtener estructura de navegación del usuario autenticado"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Permisos por Sección",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/permisos/section/:sectionId/subsection/:subsectionId",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "permisos", "section", ":sectionId", "subsection", ":subsectionId"],
+							"variable": [
+								{
+									"key": "sectionId",
+									"value": "1",
+									"description": "ID de la sección"
+								},
+								{
+									"key": "subsectionId",
+									"value": "1",
+									"description": "ID de la subsección"
+								}
+							]
+						},
+						"description": "Obtener permisos específicos de una sección/subsección"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints de navegación y permisos del usuario"
+		},
+		{
+			"name": "👥 Usuarios",
+			"item": [
+				{
+					"name": "Obtener Usuarios del Sistema",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/usuarios/sistema?page=1&limit=10",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "usuarios", "sistema"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"description": "Número de página (opcional)"
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"description": "Registros por página (opcional)"
+								}
+							]
+						},
+						"description": "Listar usuarios con acceso al sistema actual"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints de gestión de usuarios"
+		},
+		{
+			"name": "🔔 Notificaciones",
+			"item": [
+				{
+					"name": "Listar Notificaciones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notificaciones",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "notificaciones"]
+						},
+						"description": "Listar todas las notificaciones del usuario"
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Notificaciones No Leídas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notificaciones?noLeidas=true",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "notificaciones"],
+							"query": [
+								{
+									"key": "noLeidas",
+									"value": "true"
+								}
+							]
+						},
+						"description": "Filtrar solo notificaciones no leídas"
+					},
+					"response": []
+				},
+				{
+					"name": "Contar No Leídas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notificaciones/no-leidas",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "notificaciones", "no-leidas"]
+						},
+						"description": "Obtener cantidad de notificaciones no leídas"
+					},
+					"response": []
+				},
+				{
+					"name": "Marcar Todas Como Leídas",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notificaciones/leer-todas",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "notificaciones", "leer-todas"]
+						},
+						"description": "Marcar todas las notificaciones como leídas"
+					},
+					"response": []
+				},
+				{
+					"name": "Marcar Notificación Como Leída",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/notificaciones/:id/leida",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "notificaciones", ":id", "leida"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "ID de la notificación"
+								}
+							]
+						},
+						"description": "Marcar una notificación específica como leída"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints de gestión de notificaciones en tiempo real"
+		},
+		{
+			"name": "📊 Reportes (CRUD)",
+			"item": [
+				{
+					"name": "Listar Reportes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/reportes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "reportes"]
+						},
+						"description": "Listar todos los reportes"
+					},
+					"response": []
+				},
+				{
+					"name": "Obtener Reporte por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/reportes/:id",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "reportes", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "INCIDENCIA_ID del reporte"
+								}
+							]
+						},
+						"description": "Buscar reporte por INCIDENCIA_ID"
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Reporte",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Nuevo Reporte\",\n  \"descripcion\": \"Descripción del reporte\",\n  \"estado\": \"PENDIENTE\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/reportes",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "reportes"]
+						},
+						"description": "Crear un nuevo reporte"
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Reporte",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"titulo\": \"Reporte Actualizado\",\n  \"descripcion\": \"Descripción actualizada\",\n  \"estado\": \"EN_PROCESO\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/reportes/:id",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "reportes", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "INCIDENCIA_ID del reporte"
+								}
+							]
+						},
+						"description": "Actualizar un reporte existente"
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Reporte",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/v1/reportes/:id",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "v1", "reportes", ":id"],
+							"variable": [
+								{
+									"key": "id",
+									"value": "1",
+									"description": "INCIDENCIA_ID del reporte"
+								}
+							]
+						},
+						"description": "Eliminar un reporte"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints CRUD para gestión de reportes"
+		},
+		{
+			"name": "🏠 Inicio",
+			"item": [
+				{
+					"name": "Página de Inicio",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/inicio",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "inicio"]
+						},
+						"description": "Página de inicio del sistema"
+					},
+					"response": []
+				},
+				{
+					"name": "Información del Sistema",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/inicio/info",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "inicio", "info"]
+						},
+						"description": "Detalles del sistema (nombre, versión, uptime)"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints de información general del sistema"
+		},
+		{
+			"name": "📡 Monitoreo y Health Checks",
+			"item": [
+				{
+					"name": "Health Check (Root)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["health"]
+						},
+						"description": "Health check root (para Docker/Dokploy)"
+					},
+					"response": []
+				},
+				{
+					"name": "Health Check (API)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "health"]
+						},
+						"description": "Health check API general"
+					},
+					"response": []
+				},
+				{
+					"name": "Health Check (Monitoring)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/monitoring/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "monitoring", "health"]
+						},
+						"description": "Health check básico (liveness) - verifica que el servidor esté vivo"
+					},
+					"response": []
+				},
+				{
+					"name": "Readiness Check",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/monitoring/health/ready",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "monitoring", "health", "ready"]
+						},
+						"description": "Health check completo (readiness) - verifica memoria, database, cache"
+					},
+					"response": []
+				},
+				{
+					"name": "Métricas Completas (JSON)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/monitoring/metrics",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "monitoring", "metrics"]
+						},
+						"description": "Todas las métricas del sistema en formato JSON detallado"
+					},
+					"response": []
+				},
+				{
+					"name": "Métricas Prometheus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/monitoring/metrics/prometheus",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "monitoring", "metrics", "prometheus"]
+						},
+						"description": "Métricas en formato Prometheus (text/plain)"
+					},
+					"response": []
+				},
+				{
+					"name": "Resumen de Métricas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/monitoring/metrics/summary",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "monitoring", "metrics", "summary"]
+						},
+						"description": "Resumen ejecutivo de métricas principales"
+					},
+					"response": []
+				},
+				{
+					"name": "Info de Módulos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/modules/info",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "modules", "info"]
+						},
+						"description": "Información de módulos cargados (público)"
+					},
+					"response": []
+				},
+				{
+					"name": "Health de Módulos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/modules/health",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "modules", "health"]
+						},
+						"description": "Health check de módulos (público)"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints de monitoreo, métricas y health checks del sistema"
+		},
+		{
+			"name": "📚 Documentación",
+			"item": [
+				{
+					"name": "Swagger UI",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api-docs",
+							"host": ["{{baseUrl}}"],
+							"path": ["api-docs"]
+						},
+						"description": "Interfaz Swagger UI para explorar la API (abrir en navegador)"
+					},
+					"response": []
+				},
+				{
+					"name": "Swagger JSON",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/docs",
+							"host": ["{{baseUrl}}"],
+							"path": ["api", "docs"]
+						},
+						"description": "Especificación OpenAPI en formato JSON"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints de documentación automática (Swagger)"
+		}
+	],
+	"auth": {
+		"type": "noauth"
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Las cookies se envían automáticamente si están configuradas",
+					"// No se requiere script adicional para autenticación"
+				]
+			}
+		}
+	]
+}

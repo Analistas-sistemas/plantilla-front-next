@@ -1,26 +1,280 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  /* shadcn/ui Base Colors */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-anek-latin);
+  --font-mono: var(--font-anek-devanagari);
+  --font-heading: var(--font-anek-latin);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* Brand Colors - Version 1 */
+  --color-brand-primary: var(--color-primary);
+  --color-brand-primary-hover: var(--color-primary-hover);
+  --color-brand-primary-active: var(--color-primary-active);
+  --color-brand-primary-disabled: var(--color-primary-disabled);
+
+  --color-brand-secondary: var(--color-secondary);
+  --color-brand-secondary-hover: var(--color-secondary-hover);
+  --color-brand-secondary-active: var(--color-secondary-active);
+  --color-brand-secondary-disabled: var(--color-secondary-disabled);
+
+  --color-success: var(--color-success);
+  --color-success-hover: var(--color-success-hover);
+  --color-success-active: var(--color-success-active);
+  --color-success-disabled: var(--color-success-disabled);
+
+  --color-export: var(--color-export);
+  --color-export-hover: var(--color-export-hover);
+  --color-export-active: var(--color-export-active);
+  --color-export-disabled: var(--color-export-disabled);
+
+  --color-warning: var(--color-warning);
+  --color-warning-hover: var(--color-warning-hover);
+  --color-warning-active: var(--color-warning-active);
+  --color-warning-disabled: var(--color-warning-disabled);
+
+  --color-danger: var(--color-danger);
+  --color-danger-hover: var(--color-danger-hover);
+  --color-danger-active: var(--color-danger-active);
+  --color-danger-disabled: var(--color-danger-disabled);
+
+  --color-info: var(--color-info);
+  --color-info-hover: var(--color-info-hover);
+  --color-info-active: var(--color-info-active);
+  --color-info-disabled: var(--color-info-disabled);
+
+  /* Brand Colors - Version 2 */
+  --color-v2-primary: var(--v2-primary);
+  --color-v2-primary-hover: var(--v2-primary-hover);
+  --color-v2-primary-active: var(--v2-primary-active);
+  --color-v2-primary-disabled: var(--v2-primary-disabled);
+
+  --color-v2-secondary: var(--v2-secondary);
+  --color-v2-secondary-hover: var(--v2-secondary-hover);
+  --color-v2-secondary-active: var(--v2-secondary-active);
+  --color-v2-secondary-disabled: var(--v2-secondary-disabled);
+
+  --color-v2-success: var(--v2-success);
+  --color-v2-success-hover: var(--v2-success-hover);
+  --color-v2-success-active: var(--v2-success-active);
+  --color-v2-success-disabled: var(--v2-success-disabled);
+
+  --color-v2-warning: var(--v2-warning);
+  --color-v2-warning-hover: var(--v2-warning-hover);
+  --color-v2-warning-active: var(--v2-warning-active);
+  --color-v2-warning-disabled: var(--v2-warning-disabled);
+
+  --color-v2-info: var(--v2-info);
+  --color-v2-info-hover: var(--v2-info-hover);
+  --color-v2-info-active: var(--v2-info-active);
+  --color-v2-info-disabled: var(--v2-info-disabled);
+
+  /* Radius */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* ====== shadcn/ui Base Colors ====== */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.145 0 0);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.145 0 0);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.145 0 0);
+  --primary: oklch(0.205 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.97 0 0);
+  --secondary-foreground: oklch(0.205 0 0);
+  --muted: oklch(0.97 0 0);
+  --muted-foreground: oklch(0.556 0 0);
+  --accent: oklch(0.97 0 0);
+  --accent-foreground: oklch(0.205 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.922 0 0);
+  --input: oklch(0.922 0 0);
+  --ring: oklch(0.708 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.985 0 0);
+  --sidebar-foreground: oklch(0.145 0 0);
+  --sidebar-primary: oklch(0.205 0 0);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.97 0 0);
+  --sidebar-accent-foreground: oklch(0.205 0 0);
+  --sidebar-border: oklch(0.922 0 0);
+  --sidebar-ring: oklch(0.708 0 0);
+
+  /* ====== BRAND COLORS - VERSION 1 ====== */
+
+  /* Primary */
+  --color-primary: #082853;
+  --color-primary-hover: #22436F;
+  --color-primary-active: #2B5DA1;
+  --color-primary-disabled: #6B7280;
+
+  /* Secondary */
+  --color-secondary: #3F8CF9;
+  --color-secondary-hover: #5A9FFC;
+  --color-secondary-active: #5398F8;
+  --color-secondary-disabled: #CAD8F1;
+
+  /* Success */
+  --color-success: #2BA5CD;
+  --color-success-hover: #45B1CE;
+  --color-success-active: #3CAAC8;
+  --color-success-disabled: #D6E5FA;
+
+  /* Export */
+  --color-export: #09718A;
+  --color-export-hover: #258FA6;
+  --color-export-active: #1A859D;
+  --color-export-disabled: #8CC3D7;
+
+  /* Warning */
+  --color-warning: #D57952;
+  --color-warning-hover: #D78158;
+  --color-warning-active: #DE956A;
+  --color-warning-disabled: #E4DBE7;
+
+  /* Danger */
+  --color-danger: #DC2626;
+  --color-danger-hover: #EF4444;
+  --color-danger-active: #B91C1C;
+  --color-danger-disabled: #FECACA;
+
+  /* Info */
+  --color-info: #66A6FB;
+  --color-info-hover: #7CB2FA;
+  --color-info-active: #B4D3FD;
+  --color-info-disabled: #ABC9F9;
+
+  /* Text Colors */
+  --color-text-light: #ffffff;
+  --color-text-dark: #082853;
+
+  /* ====== BRAND COLORS - VERSION 2 ====== */
+
+  /* Primary v2 */
+  --v2-primary: #EDF4FF;
+  --v2-primary-hover: #EEF4FF;
+  --v2-primary-active: #336DD9;
+  --v2-primary-disabled: #0A1D49;
+
+  /* Secondary v2 */
+  --v2-secondary: #3A72E0;
+  --v2-secondary-hover: #2B5FBC;
+  --v2-secondary-active: #1F498E;
+  --v2-secondary-disabled: #0C3D5C;
+
+  /* Success v2 */
+  --v2-success: #6ECBCD;
+  --v2-success-hover: #19819D;
+  --v2-success-active: #0C566F;
+  --v2-success-disabled: #0C3D5C;
+
+  /* Warning v2 */
+  --v2-warning: #F4B33C;
+  --v2-warning-hover: #F2A61E;
+  --v2-warning-active: #CA8825;
+  --v2-warning-disabled: #9D6A2D;
+
+  /* Info v2 */
+  --v2-info: #69A7ED;
+  --v2-info-hover: #5389DB;
+  --v2-info-active: #4775BF;
+  --v2-info-disabled: #40609B;
+
+  /* Text helpers v2 */
+  --v2-text-dark: #0A1D49;
+  --v2-text-light: #ffffff;
+}
+
+.dark {
+  --background: oklch(0.145 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.205 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.205 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.922 0 0);
+  --primary-foreground: oklch(0.205 0 0);
+  --secondary: oklch(0.269 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.708 0 0);
+  --accent: oklch(0.269 0 0);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.556 0 0);
+  --chart-1: oklch(0.87 0 0);
+  --chart-2: oklch(0.556 0 0);
+  --chart-3: oklch(0.439 0 0);
+  --chart-4: oklch(0.371 0 0);
+  --chart-5: oklch(0.269 0 0);
+  --sidebar: oklch(0.205 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.269 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 10%);
+  --sidebar-ring: oklch(0.556 0 0);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
 }
