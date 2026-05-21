@@ -1,4 +1,4 @@
-import { PageWithPermissions } from '@/components/shared';
+import { PageWithPermissions } from '@/components/guards';
 import { TablaPageContent } from './tabla-content';
 
 export default async function TablaPage() {

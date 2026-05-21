@@ -1,4 +1,5 @@
-import { PageWithPermissions, PageTemplate } from '@/components/shared';
+import { PageWithPermissions } from '@/components/guards';
+import { PageTemplate } from '@/components/common';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';

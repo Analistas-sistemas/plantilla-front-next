@@ -1,8 +1,8 @@
 import { getMenuItems, getSistemaNombre } from '@/lib/menu';
 import { getUserSession } from '@/lib/auth';
 import { getContextoCompleto, getMockContexto } from '@/lib/user/profile';
-import { Sidebar } from '@/components/layout/sidebar';
-import { BreadcrumbProvider } from '@/components/layout/breadcrumb-provider';
+import { Sidebar } from '@/components/layout/sidebar/sidebar';
+import { BreadcrumbProvider } from '@/components/layout/breadcrumb/breadcrumb-provider';
 import type { MenuItem } from '@/lib/menu/types';
 
 export default async function DashboardLayout({

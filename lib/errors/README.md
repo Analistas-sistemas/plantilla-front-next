@@ -1,87 +1,80 @@
-# Error Pages - Sistema de Manejo de Errores
+# Sistema de Errores
 
-Este módulo proporciona un sistema centralizado para manejar y mostrar errores en la aplicación.
+Sistema centralizado de manejo de errores para el frontend.
 
-## Página de Error Única
+## Archivos
 
-La aplicación tiene una **página de error única** ubicada en `/error` que maneja todos los códigos de error HTTP y de aplicación.
+### `error-messages.ts`
+Mensajes de error localizados y categorizados:
+- Errores de autenticación (401, 403)
+- Errores de validación (400, 422)
+- Errores de servidor (500, 503)
+- Errores de red
 
-## Uso Rápido
+### `redirect.ts`
+Utilidades para redirección en caso de error:
+- Redirección a acceso denegado
+- Redirección a página de error
+- Redirección con parámetros de error
 
-### Helpers Específicos (Recomendado)
+## Uso
+
+### Mensajes de Error
 
 ```typescript
-import { redirectTo404, redirectTo500, redirectTo403 } from '@/lib/errors';
+import { getErrorMessage } from '@/lib/errors';
 
-// En un Server Component
-export default async function MyPage() {
-  const data = await fetchData();
-  
-  if (!data) {
-    redirectTo404(); // Redirige a /error?code=404
-  }
-  
-  return <div>{data}</div>;
+try {
+  await apiClient.get('/api/resource');
+} catch (error) {
+  const message = getErrorMessage(error);
+  toast.error(message);
 }
 ```
 
-### Helper Genérico
+### Redirecciones
 
 ```typescript
-import { redirectToError } from '@/lib/errors';
+import { redirectToAccessDenied, redirectToError } from '@/lib/errors';
 
-redirectToError('419'); // Sesión vencida
-redirectToError('maintenance'); // En mantenimiento
+// Redireccionar a acceso denegado
+redirectToAccessDenied('insufficient');
+
+// Redireccionar a página de error
+redirectToError('Error inesperado', 500);
 ```
 
-### Desde Client Components
+## Códigos de Razón
 
-```typescript
-'use client';
+Para acceso denegado:
+- `error`: Error al verificar permisos
+- `no-module`: Módulo no encontrado
+- `insufficient`: Permisos insuficientes
+- `no-access`: Sin acceso
 
-import { useRouter } from 'next/navigation';
-import { getErrorUrl } from '@/lib/errors';
+## Mejores Prácticas
 
-export function MyComponent() {
-  const router = useRouter();
-  
-  const handleError = () => {
-    router.push(getErrorUrl('500'));
-  };
-  
-  return <button onClick={handleError}>Simular error</button>;
-}
-```
+1. **Siempre captura errores específicos primero**
+   ```typescript
+   try {
+     // ...
+   } catch (error) {
+     if (error instanceof UnauthorizedError) {
+       redirectToAccessDenied('no-access');
+     } else {
+       toast.error(getErrorMessage(error));
+     }
+   }
+   ```
 
-## Helpers Disponibles
+2. **Usa mensajes localizados**
+   - No hardcodees mensajes de error en componentes
+   - Usa `getErrorMessage()` para consistencia
 
-| Helper | Código | Descripción |
-|--------|--------|-------------|
-| `redirectTo404()` | 404 | Página no encontrada |
-| `redirectTo401()` | 401 | No autorizado |
-| `redirectTo403()` | 403 | Acceso prohibido |
-| `redirectTo500()` | 500 | Error del servidor |
-| `redirectTo503()` | 503 | Servicio no disponible |
-| `redirectToError(code)` | Custom | Cualquier código |
-
-## Códigos de Error Disponibles
-
-| Código | Título | Descripción |
-|--------|--------|-------------|
-| `401` | No Autorizado | Sesión expirada |
-| `403` | Acceso Prohibido | Sin permisos |
-| `404` | No Encontrado | Página no existe |
-| `419` | Sesión Vencida | Token expirado |
-| `500` | Error del Servidor | Error inesperado |
-| `502` | Puerta de Enlace | Servidor no responde |
-| `503` | Servicio No Disponible | Mantenimiento |
-| `504` | Tiempo Agotado | Timeout |
-| `network` | Sin Conexión | Error de red |
-| `timeout` | Solicitud Expirada | Operación tardó mucho |
-| `maintenance` | En Mantenimiento | Mantenimiento programado |
-| `0` | Error de Red | Sin comunicación |
-
-## Ver Documentación Completa
-
-Para ejemplos completos y guías detalladas, consulta:
-📄 **[docs/ERROR_HANDLING.md](../../docs/ERROR_HANDLING.md)**
+3. **Log errores importantes**
+   ```typescript
+   catch (error) {
+     console.error('[ComponentName] Error:', error);
+     toast.error(getErrorMessage(error));
+   }
+   ```

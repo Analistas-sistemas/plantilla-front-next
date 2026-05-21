@@ -14,6 +14,9 @@ export interface Usuario {
   };
 }
 
+// Alias para compatibilidad con servicios
+export type User = Usuario;
+
 export interface Sistema {
   nombre?: string;
   minutosTokenAcceso?: number;

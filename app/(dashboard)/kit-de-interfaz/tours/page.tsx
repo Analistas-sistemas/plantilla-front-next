@@ -1,6 +1,6 @@
-import { PageWithPermissions } from '@/components/shared';
-import { PageContainer } from '@/components/shared/page-container';
-import { ContentCard } from '@/components/shared/content-card';
+import { PageWithPermissions } from '@/components/guards';
+import { PageContainer } from '@/components/common/page-container';
+import { ContentCard } from '@/components/common/content-card';
 
 export default async function ToursPage() {
   return (

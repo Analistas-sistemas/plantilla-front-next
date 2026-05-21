@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { AlertTriangle, XCircle, Lock, Ban, Search, Server, Wrench, Clock, Wifi, HourglassIcon, LucideIcon, Home, HelpCircle } from 'lucide-react';
 import Link from 'next/link';
 import { ERROR_MESSAGES } from '@/lib/errors/error-messages';
-import { BackButton } from './back-button';
+import { BackButton } from './_components/back-button';
 
 export const metadata: Metadata = {
   title: 'Error - Sistema Plantilla',

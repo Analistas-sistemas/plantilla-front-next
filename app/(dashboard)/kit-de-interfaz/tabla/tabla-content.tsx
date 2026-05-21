@@ -1,6 +1,6 @@
 'use client';
 
-import { PageContainer, ContentCard } from '@/components/shared';
+import { PageContainer, ContentCard } from '@/components/common';
 import {
   Table,
   TableBody,

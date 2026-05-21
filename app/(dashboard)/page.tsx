@@ -1,5 +1,5 @@
-import { PageContainer } from '@/components/shared/page-container';
-import { ContentCard } from '@/components/shared/content-card';
+import { PageContainer } from '@/components/common/page-container';
+import { ContentCard } from '@/components/common/content-card';
 
 export default function InicioPage() {
   return (

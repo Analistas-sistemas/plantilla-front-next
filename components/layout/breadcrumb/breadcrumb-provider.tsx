@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 import { useMemo } from 'react';
-import { Header } from './header';
+import { Header } from '../header/header';
 import type { Usuario, ContextoCompleto, BreadcrumbItem } from '@/types/user';
 import type { MenuItem } from '@/lib/menu/types';
 

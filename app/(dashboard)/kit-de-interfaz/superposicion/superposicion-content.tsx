@@ -1,6 +1,6 @@
 'use client';
 
-import { PageContainer, ContentCard } from '@/components/shared';
+import { PageContainer, ContentCard } from '@/components/common';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -19,7 +19,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet';
-import { LoadingOverlay } from '@/components/shared/loading-overlay';
+import { LoadingOverlay } from '@/components/common/loading-overlay';
 import { loadingStore } from '@/lib/loading/loading-store';
 
 export function SuperposicionPageContent() {

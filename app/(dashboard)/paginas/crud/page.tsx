@@ -1,9 +1,10 @@
-import { PageWithPermissions, PageTemplate } from '@/components/shared';
+import { PageWithPermissions } from '@/components/guards';
+import { PageTemplate } from '@/components/common';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { DataTable } from '@/components/shared/data-table';
+import { DataTable } from '@/components/common/data-table/data-table';
 import { Plus, Search } from 'lucide-react';
 import { ColumnType } from '@/types/data-table';
 

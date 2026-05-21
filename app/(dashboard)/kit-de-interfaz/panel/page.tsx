@@ -1,4 +1,5 @@
-import { PageWithPermissions, PageContainer, ContentCard } from '@/components/shared';
+import { PageWithPermissions } from '@/components/guards';
+import { PageContainer, ContentCard } from '@/components/common';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 import { Info, AlertTriangle, CheckCircle2, XCircle } from 'lucide-react';
 

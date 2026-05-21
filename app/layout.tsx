@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import { LoadingOverlay } from "@/components/shared/loading-overlay";
+import { LoadingOverlay } from "@/components/common/loading-overlay";
 
 const anekLatin = localFont({
   src: "../public/fonts/AnekLatin-VariableFont_wdth,wght.ttf",

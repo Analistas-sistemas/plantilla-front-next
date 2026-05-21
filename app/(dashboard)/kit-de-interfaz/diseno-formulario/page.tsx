@@ -1,4 +1,5 @@
-import { PageWithPermissions, PageContainer, ContentCard } from '@/components/shared';
+import { PageWithPermissions } from '@/components/guards';
+import { PageContainer, ContentCard } from '@/components/common';
 
 export default async function DisenoFormularioPage() {
   return (

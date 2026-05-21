@@ -1,9 +1,9 @@
-import { PageWithPermissions, PageTemplate } from '@/components/shared';
+import { PageTemplate } from '@/components/common';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Zap, FileText, Users, BarChart3, Settings, Clock } from 'lucide-react';
 
-export default async function AccesoRapidoPage() {
+export default function AccesoRapido() {
   const shortcuts = [
     { icon: FileText, label: 'Nuevo Documento', description: 'Crear documento', href: '#' },
     { icon: Users, label: 'Gestión Usuarios', description: 'Administrar usuarios', href: '#' },
@@ -13,11 +13,10 @@ export default async function AccesoRapidoPage() {
   ];
 
   return (
-    <PageWithPermissions sectionCode="INICIO" subsectionCode="ACCESO">
-      <PageTemplate
-        title="Acceso Rápido"
-        description="Enlaces rápidos a las funcionalidades más utilizadas del sistema"
-      >
+    <PageTemplate
+      title="Acceso Rápido"
+      description="Enlaces rápidos a las funcionalidades más utilizadas del sistema"
+    >
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {shortcuts.map((shortcut, index) => {
           const Icon = shortcut.icon;
@@ -72,7 +71,6 @@ export default async function AccesoRapidoPage() {
           </div>
         </CardContent>
       </Card>
-      </PageTemplate>
-    </PageWithPermissions>
+    </PageTemplate>
   );
 }

@@ -1,4 +1,5 @@
-import { PageWithPermissions, PageTemplate } from '@/components/shared';
+import { PageWithPermissions } from '@/components/guards';
+import { PageTemplate } from '@/components/common';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Inbox, Plus } from 'lucide-react';
